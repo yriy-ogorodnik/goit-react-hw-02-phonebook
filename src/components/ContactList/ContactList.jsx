@@ -2,36 +2,23 @@ import PropTypes from 'prop-types';
 import ContactstItem from 'components/ContactItem/ContactsItem';
 import StyledList from './ContactsList.styled';
 
-
-
-function ContactsList({ contacts, filter, onClick }) {
-  let filtered = contacts;
-  //
-  if (filter) {
-    const normalizedFilter = filter.toLowerCase();
-    console.log('normalizedFilter :>> ', normalizedFilter);
-    filtered = contacts.filter(contact =>
-      // const filtered
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-    // this.setstate prev (state new)
-  }
+const ContactsList = ({ contacts, onRemove }) => {
   return (
     <StyledList>
-      {filtered.map(contact => {
+      {contacts.map(contact => {
         return (
           <ContactstItem
             key={contact.id}
             id={contact.id}
             name={contact.name}
             number={contact.number}
-            onClick={onClick}
+            onRemove={onRemove}
           />
         );
       })}
     </StyledList>
   );
-}
+};
 
 ContactsList.propTypes = {
   contacts: PropTypes.arrayOf(
@@ -41,8 +28,8 @@ ContactsList.propTypes = {
       id: PropTypes.string.isRequired,
     })
   ),
-  filter: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default ContactsList;

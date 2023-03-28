@@ -6,17 +6,17 @@ const Filter = ({ handleFilterChange, filter }) => {
     <StyledFilter>
       Find contacts by name
       <input
-        onChange={handleFilterChange}
         type="text"
         name="filter"
         value={filter}
+        onChange={handleFilterChange}
       />
     </StyledFilter>
   );
 };
 
 Filter.propTypes = {
-  filter: PropTypes.string,
+  filter: PropTypes.string.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
 };
 

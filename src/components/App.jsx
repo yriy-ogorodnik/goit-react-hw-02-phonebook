@@ -20,7 +20,7 @@ class App extends Component {
   getFormData = data => {
     console.log('data :>> ', data);
     const dataIncludes = this.state.contacts.find(
-      contact => contact.name === data.name
+      contact => contact.name.toLowerCase() === data.name.toLowerCase()
     );
     if (dataIncludes) {
       return alert(`${data.name} is already in contacts`);
@@ -51,6 +51,13 @@ class App extends Component {
     }));
   };
 
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
   render() {
     return (
       <div>
@@ -62,9 +69,8 @@ class App extends Component {
           filter={this.state.filter}
         />
         <ContactsList
-          contacts={this.state.contacts}
-          filter={this.state.filter}
-          onClick={this.handleDelete}
+          contacts={this.getVisibleContacts()}
+          onRemove={this.handleDelete}
         />
       </div>
     );
